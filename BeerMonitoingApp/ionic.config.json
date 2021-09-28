@@ -1,0 +1,7 @@
+{
+  "name": "BeerMonitoingApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
