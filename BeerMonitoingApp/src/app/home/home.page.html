@@ -1,20 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Beer Monitoring App
     </ion-title>
+    <ion-button slot="start" (click)="openFirst()" expand="block" fill="clear" shape="round">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menú</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item *ngFor="let fase of procesos" (click)="itemCardSelect(fase)">
+          <ion-label>{{fase}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>  
+
+  <ion-card>
+      <ion-list>
+        <ion-item *ngFor="let fase of procesos" (click)="itemMenuSelect(fase)">
+          <ion-label>{{fase}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+  </ion-card>
+
 </ion-content>
+
+
+
