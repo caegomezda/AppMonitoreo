@@ -18,19 +18,34 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+
       <ion-list>
-        <ion-item *ngFor="let fase of procesos" (click)="itemCardSelect(fase)">
-          <ion-label>{{fase}}</ion-label>
+        <ion-item *ngFor="let fase of procesos" (click)="itemMenuSelect(fase)">
+          <ion-label>
+            {{fase['name']}}
+      
+          </ion-label>
         </ion-item>
+
       </ion-list>
+
     </ion-content>
+
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>  
 
   <ion-card>
       <ion-list>
-        <ion-item *ngFor="let fase of procesos" (click)="itemMenuSelect(fase)">
-          <ion-label>{{fase}}</ion-label>
+        <ion-item *ngFor="let fase of procesos" (click)="itemCardSelect(fase)">
+          <ion-col size="8">
+            <ion-label>{{fase['name']}}</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <div class="icon-menu" align="center">
+              <img src='{{fase.icon}}' alt="">
+              <!-- <img  src="../../assets/img/iconosMenu/cilindro1.png" alt=""> -->
+            </div>
+          </ion-col>
         </ion-item>
       </ion-list>
 

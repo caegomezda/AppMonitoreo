@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -7,15 +8,37 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
   procesos:any = [
-    "Maceración",
-    "Hervido",
-    "Clarificación",
-    "Fermentación",
-    "Cocción",
-    "Almacenamiento"  
+    {
+      id:"mace",
+      name:"Maceración",
+      icon:"../../assets/img/iconosMenu/cilindro1.png"
+    },
+    {
+      name:"Hervido",
+      icon:"../../assets/img/iconosMenu/fuego1.png"
+    },
+    {
+      name:"Clarificación",
+    icon:"icon3"
+    },
+    {
+      name:"Fermentación",
+      icon:"icon4"
+    },
+    {
+      name:"Cocción",
+      icon:"icon5"
+    },
+    {
+      name:"Almacenamiento",
+      icon:"icon6"
+    }  
   ];
-  constructor(private menu: MenuController) { }
+
+  constructor(private menu: MenuController,
+              private router : Router) { }
 
 
 
@@ -26,11 +49,17 @@ export class HomePage {
 
 
   itemMenuSelect(fase){
-    console.log('fase',fase);
+    console.log('fase1',fase);
   }
 
   itemCardSelect(fase){
-    console.log('fase',fase);
+    console.log('fase2',fase);
+    this.routerLinkPage(fase["id"]);
+  }
+
+  routerLinkPage(menuId){
+    console.log('menuId',menuId);
+    this.router.navigate([`/${menuId}`]);
   }
 
 }

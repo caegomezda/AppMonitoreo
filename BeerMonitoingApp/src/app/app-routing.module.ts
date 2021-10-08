@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'mace',
+    loadChildren: () => import('./mace/mace.module').then( m => m.MacePageModule)
+  },
 ];
 
 @NgModule({
