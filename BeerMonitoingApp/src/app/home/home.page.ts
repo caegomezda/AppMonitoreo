@@ -16,24 +16,29 @@ export class HomePage {
       icon:"../../assets/img/iconosMenu/cilindro1.png"
     },
     {
+      id:"herv",
       name:"Hervido",
       icon:"../../assets/img/iconosMenu/fuego1.png"
     },
     {
+      id:"clar",
       name:"Clarificación",
-    icon:"icon3"
+      icon:"../../assets/img/iconosMenu/claro.png"
     },
     {
+      id:"ferm",
       name:"Fermentación",
-      icon:"icon4"
+      icon:"../../assets/img/iconosMenu/cerveza-roja.png"
     },
     {
+      id:"cocc",
       name:"Cocción",
-      icon:"icon5"
+      icon:"../../assets/img/iconosMenu/maceta.png"
     },
     {
+      id:"alm",
       name:"Almacenamiento",
-      icon:"icon6"
+      icon:"../../assets/img/iconosMenu/comprar.png"
     }  
   ];
 
@@ -53,7 +58,6 @@ export class HomePage {
   }
 
   itemCardSelect(fase){
-    console.log('fase2',fase);
     this.routerLinkPage(fase["id"]);
   }
 

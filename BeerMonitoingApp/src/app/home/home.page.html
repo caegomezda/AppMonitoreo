@@ -8,9 +8,7 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-
   <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="primary">
@@ -18,22 +16,17 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-
       <ion-list>
         <ion-item *ngFor="let fase of procesos" (click)="itemMenuSelect(fase)">
           <ion-label>
+            <ion-icon slot="start" name="caret-forward-outline"></ion-icon>
             {{fase['name']}}
-      
           </ion-label>
         </ion-item>
-
       </ion-list>
-
     </ion-content>
-
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>  
-
   <ion-card>
       <ion-list>
         <ion-item *ngFor="let fase of procesos" (click)="itemCardSelect(fase)">
@@ -43,14 +36,11 @@
           <ion-col size="4">
             <div class="icon-menu" align="center">
               <img src='{{fase.icon}}' alt="">
-              <!-- <img  src="../../assets/img/iconosMenu/cilindro1.png" alt=""> -->
             </div>
           </ion-col>
         </ion-item>
       </ion-list>
-
   </ion-card>
-
 </ion-content>
 
 
