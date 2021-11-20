@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiFakeService } from '../services/api-fake.service';
 
 @Component({
   selector: 'app-cocc',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoccPage implements OnInit {
 
-  constructor() { }
+  constructor(private apiRes : ApiFakeService) { }
 
   ngOnInit() {
+    this.getDataSensorNivel1()
+  }
+
+  async getDataSensorNivel1(){
+
+    let result = await this.apiRes.getSensores(1,"Sensores");
+    console.log("result",result);
+
+
   }
 
 }
