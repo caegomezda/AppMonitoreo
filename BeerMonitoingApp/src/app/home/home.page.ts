@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, MenuController } from '@ionic/angular';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
+import { FirebaseService } from '../services/firebase.service';
+import { StorageService } from '../services/storage.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -45,13 +47,32 @@ export class HomePage {
   ];
 
   Device:any;
+  credentialForm: FormGroup;
+  @ViewChild('passwordEyeRegister', { read: ElementRef }) passwordEye: ElementRef;
+  passwordTypeInput  =  'password';
+  iconpassword  =  'eye-off';
 
-  constructor(private menu: MenuController,
-              private router : Router,
-              private bluetoothSerial : BluetoothSerial,
-              private alertController : AlertController) { }
-
-
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private alertController: AlertController,
+              private loadingController: LoadingController,
+              private firebaseService : FirebaseService,
+              private storage : StorageService,
+              private menu: MenuController,
+              private apiService : ApiService
+  ) {}
+  // constructor(private menu: MenuController,
+  //             private router : Router,
+  //             private firebasse : FirebaseService) { }
+  ngOnInit() {
+    this.credentialForm = this.fb.group({
+      email: "camiloedg23@gmail.com",
+      password: "camilo1234"
+    });
+  }
+  ionViewWillEnter(){
+    this.signIn();
+  }
 
   openFirst() {
     this.menu.enable(true, 'first');
@@ -72,87 +93,30 @@ export class HomePage {
     this.router.navigate([`/${menuId}`]);
   }
 
-  async AvtivarBluetooth(){
-    await this.bluetoothSerial.isEnabled().then(
-      res =>{
-        this.isEnable("IsOn");
-        this.listDivice()
-        console.log('this.Divice',this.Device);
-        console.log('res',res);
-      },
-      err => {
-        this.isEnable("IsOff");
-        console.log('err',err);
-      }
-    )  
-  }
-
-  listDivice(){
-    this.bluetoothSerial.list().then(
-      res => {
-        this.Device = res;
-      },
-      err =>{
-        console.log('err',err);
-      }
-    )
-  }
-  connect(elementAddres){
-    this.bluetoothSerial.connect(elementAddres).subscribe(
-      succes => {
-        this.deviceConnected()
-      },
-      error=>{
-        console.log('error',error);
-      }
-    )
-  }
-
-  deviceConnected(){
-    this.bluetoothSerial.subscribe('/n').subscribe(
-      succes => {
-        this.bluetoothHanldler(succes);
-      }
-    )
-  }
-
-  bluetoothHanldler(value){
-    console.log('value',value);
-  }
-
-  setData(){
-    this.bluetoothSerial.write("7").then(
-      res =>{
-        console.log('res',res);
-        console.log('Ok');
-      },
-      err =>{
-        console.log('err',err);
-      }
-    )
-  }
-
-  deviceDisconnected(){
-    this.bluetoothSerial.disconnect();
-    console.log("Divice Disconected");
-  }
-
-  async isEnable(messg){
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Alert',
-      message: messg,
-      buttons: [
-        {
-          text:"Ok",
-          handler:()=>{
-            console.log('Okey');
-          }
-        }
-      ]
+  async signIn() {
+    console.log('this.credentialForm',this.credentialForm);
+    await this.firebaseService.signIn(this.credentialForm.value).then(
+      async (res) => {
+        
+          console.log('res.user',res.user);
+          await this.storage.saveIdUser(res.user.uid);
+          await this.storage.saveTokenUser(res.user.getIdToken())
     });
+    this.getData()
+  }
+ 
+  // Easy access for form fields
+  get email() {
+    return this.credentialForm.get('email');
+  }
+  
+  get password() {
+    return this.credentialForm.get('password');
+  }
 
-    await alert.present();
+  async getData(){
+    let result  = await this.apiService.getArduinoData()
+    console.log('result',result);
   }
 
 

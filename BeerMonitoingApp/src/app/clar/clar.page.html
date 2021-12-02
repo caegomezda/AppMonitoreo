@@ -8,5 +8,47 @@
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="cube-outline"></ion-icon>
+        <ion-label align=center>Sensor de Nivel</ion-label>
+        <ion-icon name="cube-outline"></ion-icon>
 
+      </ion-item>
+      <div class="div-tanques">
+        <!-- <ion-label>{{sensorTanque}}</ion-label> -->
+        <ion-progress-bar value={{ajusteNivel}} buffer={{1-ajusteNivel}}></ion-progress-bar>
+      </div>
+      <ion-item>
+        <ion-icon name="bonfire-outline"></ion-icon>
+        <ion-label align=center>Motor</ion-label>
+        <ion-icon name="bonfire-outline"></ion-icon>
+      </ion-item>
+      <div align=center class="div-tanques">
+        <ion-chip *ngIf="estadoMotor" color="success">
+          <ion-label>Encendida</ion-label>
+        </ion-chip>
+
+        <ion-chip *ngIf="!estadoMotor" color="danger">
+          <ion-label>Apagada</ion-label>
+        </ion-chip>
+      </div>
+      <ion-item>
+        <ion-icon name="analytics-outline"></ion-icon>
+        <ion-label align=center>Bomba</ion-label>
+        <ion-icon name="analytics-outline"></ion-icon>
+      </ion-item>
+      <div align=center class="div-tanques">
+        <ion-chip *ngIf="estadoBomba" color="success">
+          <ion-label>Encendida</ion-label>
+        </ion-chip>
+
+        <ion-chip *ngIf="!estadoBomba" color="danger">
+          <ion-label>Apagada</ion-label>
+        </ion-chip>
+      </div>
+
+    </ion-list>
+  </ion-card>
 </ion-content>

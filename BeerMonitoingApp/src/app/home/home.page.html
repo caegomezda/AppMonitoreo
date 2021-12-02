@@ -43,21 +43,6 @@
         </ion-item>
       </ion-list>
   </ion-card>
-
-  <ion-card>
-    <ion-list>
-      <ion-item *ngFor="let element of Device">
-
-        <ion-label>{{element.name}}</ion-label>
-        <ion-label>{{element.id}}</ion-label>
-        <ion-button (click)="connect(element.addres)" expand="block" fill="clear" shape="round">
-          Click me
-        </ion-button>
-
-      </ion-item>
-    </ion-list>
-  </ion-card>
-
 </ion-content>
 
 
